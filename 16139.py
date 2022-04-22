@@ -1,7 +1,6 @@
 # 16139 py
 
 import sys
-from collections import Counter
 input = sys.stdin.readline
 
 arr = input()
