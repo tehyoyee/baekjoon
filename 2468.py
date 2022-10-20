@@ -29,9 +29,11 @@ def bfs_flood(graph, height, n):
 n = int(input())
 graph = []
 result = []
-for _ in range(n):
+max_height = 0
+for i in range(n):
 	graph.append(list(map(int, input().split())))
-for height in range(0, 101):
+	max_height = max(max_height, max(graph[i]))
+for height in range(0, max_height + 1):
 	temp = copy.deepcopy(graph)
 	result.append(bfs_flood(temp, height, n))
 print(max(result))
