@@ -1,6 +1,7 @@
 # 2468 py
 
 import sys
+import copy
 input = sys.stdin.readline
 
 dx = [1, 0, -1, 0]
@@ -8,7 +9,6 @@ dy = [0, -1, 0, 1]
 
 def bfs_flood(graph, height, n):
 	result = 0
-	print(graph)
 	for i in range(n):
 		for j in range(n):
 			if graph[i][j] <= height:
@@ -33,5 +33,6 @@ result = []
 for _ in range(n):
 	graph.append(list(map(int, input().split())))
 for height in range(1, n + 1):
-	result.append(bfs_flood(graph.deepcopy(), height, n))
-print(result)
+	temp = copy.deepcopy(graph)
+	result.append(bfs_flood(temp, height, n))
+print(max(result))
