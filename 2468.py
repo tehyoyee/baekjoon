@@ -32,7 +32,7 @@ graph = []
 result = []
 for _ in range(n):
 	graph.append(list(map(int, input().split())))
-for height in range(1, n + 1):
+for height in range(0, 101):
 	temp = copy.deepcopy(graph)
 	result.append(bfs_flood(temp, height, n))
 print(max(result))
