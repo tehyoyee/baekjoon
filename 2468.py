@@ -24,8 +24,7 @@ def bfs_flood(graph, height, n):
 					if 0 <= x + dx[k] < n and 0 <= y + dy[k] < n and graph[x + dx[k]][y + dy[k]] > height:
 						queue.append([x + dx[k], y + dy[k]])
 						graph[x + dx[k]][y + dy[k]] = 0
-	return result
-			
+	return result	
 
 n = int(input())
 graph = []
