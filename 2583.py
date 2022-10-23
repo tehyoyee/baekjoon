@@ -2,8 +2,8 @@
 
 # 22:20 ~
 
-import sys
-input = sys.stdin.readline
+# import sys
+# input = sys.stdin.readline
 
 # di = [1, 1, -1, -1]
 # dj = [1, -1, 1, -1]
@@ -56,8 +56,6 @@ def bfs(graph):
 	size = 0
 	for i in range(m):
 		for j in range(n):
-			if size:
-				result_size.append(size)
 			size = 0
 			if graph[i][j] == 1:
 				continue
@@ -74,6 +72,8 @@ def bfs(graph):
 						queue.append([v_i + di[k], v_j + dj[k]])
 						graph[v_i + di[k]][v_j + dj[k]] = 1
 						size += 1
+			if size:
+				result_size.append(size)
 	result_size.sort()
 	print(result_cnt)
 	for z in result_size:
