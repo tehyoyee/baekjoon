@@ -1,18 +1,23 @@
 # 12865.py
 
 import sys
+import copy
 input = sys.stdin.readline
 
-n, k = map(int, input().split())
-dp = [0] * (k + 1)
-goods = []
+def search(goods, ref, dp):
+	for i in range(len(goods)):
+		if ref + goods[i][0] <= k:
+			temp = copy.deepcopy(goods)
+			temp.pop(i)
+			dp[ref + goods[i][0]] = max(dp[ref] + goods[i][1], dp[ref + goods[i][0]])
+			search(temp, ref + goods[i][0], dp)
 
+n, k = map(int, input().split())
+goods = []
+dp = [0] * (k + 1)
 for _ in range(n):
 	a, b = map(int, input().split())
-	# w[a].append(b)
-	dp[a] += b
 	goods.append([a, b])
-for i in range(1, k + 1):
-	if dp[i] < 
-print(goods)
-print(dp)
+
+search(copy.deepcopy(goods), 0, dp)
+print(max(dp))
