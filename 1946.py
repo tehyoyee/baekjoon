@@ -16,5 +16,5 @@ for _ in range(t):
 	for i in range(1, n):
 		if case[i][1] < cut:
 			result += 1
-			cut = min(cut, case[i][1])
-print(result)
+			cut = case[i][1]
+	print(result)
