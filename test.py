@@ -1,4 +1,3 @@
-x = 'a'
+for i in range(0, 5, 2):
+    print(i)
 
-
-print(chr(97))
