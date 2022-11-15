@@ -23,15 +23,16 @@ for i in range(n):
 			chickens.append([i, j])
 		elif graph[i][j] == 1:
 			houses.append([i, j])
-print(chickens)
 coms = combinations(chickens, m)
-result = 0
-for com in coms:
-	dis_com = 1000000
+result = 1000000
+coms = list(coms)
+for i in range(len(coms)):
+	dis = 0
+	dis_sum = 0
 	for house in houses:
-		dis = 1000000
-		for chicken in chickens:
-			dis = min(dis, abs(house[0] - chicken[0]) + abs(house[1] - chicken[1]))
-		dis_com += dis
-	result += dis_com
-print(list(arr))
+		dis = 100000
+		for j in range(len(coms[i])):
+			dis = min(dis, abs(house[0] - coms[i][j][0]) + abs(house[1] - coms[i][j][1]))
+		dis_sum += dis
+	result = min(result, dis_sum)
+print(result)
