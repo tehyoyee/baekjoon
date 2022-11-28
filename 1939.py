@@ -28,5 +28,3 @@ for x in graph:
 	if find_parent(n) == find_parent(m):
 		print(x[0])
 		break
-# print(graph)
-# print(parent)
