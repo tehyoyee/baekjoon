@@ -16,7 +16,8 @@ w[s] = 0
 q = [[s, 0]]
 while q:
 	cur, cur_w = q.pop(0)
-	w[cur] = min(w[cur], cur_w)
+	if w[cur] < cur_w:
+		continue
 	for x in graph[cur]:
 		if w[x[0]] > cur_w + x[1]:
 			q.append([x[0], cur_w + x[1]])
