@@ -56,4 +56,4 @@ for x in jw:
 			result += x[1]
 			del bag[:j]
 			break
-print(result)
+print(result)	
