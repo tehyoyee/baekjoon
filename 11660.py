@@ -1,6 +1,6 @@
 # 11660.py
 
-# 23.01.17 00:56 ~
+# 23.01.17 00:56 ~ 00:22
 
 import sys
 input = sys.stdin.readline
