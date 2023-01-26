@@ -31,4 +31,3 @@ for height in range(height_low, height_high + 1):
 		result = [time, height]
 for x in result:
 	print(x, end=" ")
-
