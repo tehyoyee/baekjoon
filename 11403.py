@@ -6,6 +6,7 @@ graph = []
 for _ in range(n):
 	graph.append(list(map(int, input().split())))
 result = []
+
 def bfs(i, visit, n):
 	q = [i]
 	while q:
