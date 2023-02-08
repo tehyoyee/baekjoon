@@ -6,9 +6,9 @@ result = 0.0
 lines = []
 for _ in range(n):
 	lines.append(list(map(int, input().split())))
-for i in range(n - 1):
+lines.append([lines[0][0], lines[0][1]])
+for i in range(n):
 	result = result + lines[i][0] * lines[i + 1][1] - lines[i + 1][0] * lines[i][1]
-result = result + lines[]
 result = abs(result) / 2
 
-print(round(result, 1))	
+print(round(result, 1))
