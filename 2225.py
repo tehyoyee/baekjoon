@@ -2,7 +2,6 @@
 # 23.02.13. 15:13 ~ 15:43
 
 n, k = map(int, input().split())
-
 result = 1
 r = n
 n = n + k - 1
