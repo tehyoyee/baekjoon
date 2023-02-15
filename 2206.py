@@ -30,7 +30,6 @@ n, m = map(int, input().split())
 graph = []
 for i in range(n):
 	graph.append(list(map(int, input().rstrip())))
-
 visit = [[[0] * 2 for _ in range(m)] for _ in range(n)]
 q = deque([[0, 0, 1]])
 
