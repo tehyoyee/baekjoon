@@ -1,5 +1,5 @@
 # 1038.py
-# 23.02.28. 15:27 ~ 16:00
+# 23.02.28. 15:27 ~ 16:00, +15
 
 # n = int(input())
 # dp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -25,6 +25,7 @@ result = 0
 cnt = 10
 flag = 0
 i = 10
+tmp = 210
 while i <= 9876543210:
 	if cnt > n:
 		break
@@ -36,6 +37,11 @@ while i <= 9876543210:
 	if flag == 1:
 		cnt += 1
 		result = i
+	if len(str(i)) == 10 - int(str(i)[-1]) and flag == 1:
+		i = tmp
+		tmp *= 10
+		for k in range(len(str(tmp)) - 1):
+			tmp += 10 ** (1 + k)
 	i += 1
 if n < 10:
 	print(n)
