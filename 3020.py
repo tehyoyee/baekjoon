@@ -12,8 +12,10 @@ for i in range(N):
 		dp2[H - int(input())] += 1
 for i in range(H - 2, -1, -1):
 	dp1[i] += dp1[i + 1]
+print(dp1)
 for i in range(1, H):
 	dp2[i] += dp2[i - 1]
+print(dp2)
 for i in range(H):
 	if r1 > dp1[i] + dp2[i]:
 		r1 = dp1[i] + dp2[i]
