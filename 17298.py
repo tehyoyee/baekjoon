@@ -1,6 +1,9 @@
 # 17298.py
 # 23.03.29. 09:27 ~ 09:41
 
+import sys
+input = sys.stdin.readline
+
 N = int(input())
 A = list(map(int, input().split()))
 NGE = [-1] * N
