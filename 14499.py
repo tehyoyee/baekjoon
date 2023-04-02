@@ -1,5 +1,5 @@
 # 14499.py
-# 23.04.02. 16:19 ~
+# 23.04.02. 16:19 ~ 90분정도
 
 import sys
 input = sys.stdin.readline
