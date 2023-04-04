@@ -11,6 +11,9 @@ r_heap = []
 result = []
 for i in range(n):
 	tmp = int(input())
+	print(l_heap)
+	print(r_heap)
+	print()
 	if len(l_heap) == len(r_heap):
 		heapq.heappush(l_heap, (-tmp, tmp))
 	else:
