@@ -10,7 +10,7 @@ public class Main {
 	static int [] di = {0, 0, 1, -1};
 	static int [] dj = {1, -1, 0, 0};
 	static int w, h;
-	static int [][] visit;:
+	static int [][] visit;
 	static int [][] graph;
 	static int day = 0;
 	static Queue<Tomato> q = new LinkedList<>();
