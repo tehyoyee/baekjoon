@@ -10,6 +10,7 @@ class Main {
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
 		dp = new Long[31];
 
 		dp[0] = 1L;
