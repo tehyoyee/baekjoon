@@ -1,66 +1,58 @@
-# 15684.py
-# 23.05.12.20:14 ~
+# 15685.py
+# 23.07.03. 16:29 ~ 17:45 시간초과
 
 import sys
 input = sys.stdin.readline
-from collections import deque
+from itertools import combinations
 
-di = [0, 0, -1]
-dj = [-1, 1, 0]
+N, M, H = map(int, input().split())
 
-M, N, H = map(int, input().split())
-graph = [[False] * M for _ in range(N + 1)]
-for _ in range(N):
+trans = [[False] * (N + 1) for _ in range(H + 1)]
+candi = []
+
+for i in range(1, H + 1):
+	for j in range(1, N):
+		candi.append([i, j])
+
+for i in range(M):
 	a, b = map(int, input().split())
-	graph[a][b] = True
-	graph[b][a] = True
+	trans[a][b] = True
+	if [a, b] in candi:
+		candi.remove([a, b])
+	if [a, b + 1] in candi:
+		candi.remove([a, b + 1])
+	if [a, b - 1] in candi:
+		candi.remove([a, b - 1])
 
-result = 4
-for j in range(1, M + 1):
-	visit = [[-1] * (M + 1) for _ in range(N + 1)]
-	print(j)
-	q = deque([[1, j, 0]])
-	visit[1][j] = 0
-	while q:
-		ci, cj, cnt = q.popleft()
-		print(ci, cj, cnt)
-		if ci == N:
-			result = min(result, cnt)
-		for k in range(3):
-			ni, nj = ci + di[k], cj + dj[k]
-			if 1 <= nj and nj <= M:
-				if k == 0:
-					if graph[ni][nj] and cnt < visit[ni][nj]:
-						visit[ni][nj] = cnt
-						q.append([ni, nj, cnt])
-					elif cnt < 3 and cnt + 1 < visit[ni][nj]:
-						visit[ni][nj] = cnt + 1
-						q.append([ni, nj, cnt + 1])
-				elif k == 1:
-					if graph[ci][cj] and cnt < visit[ni][nj]:
-						visit[ni][nj] = cnt
-						q.append([ni, nj, cnt])
-					elif cnt < 3 and cnt + 1 < visit[ni][nj]:
-						visit[ni][nj] = cnt + 1
-						q.append([ni, nj, cnt + 1])
-				else:
-					if cnt < visit[ni][nj]:
-						visit[ni][nj] = cnt
-						q.append([ni, nj, cnt])
-print(result)
-						
-						
+def f(pos, candiCheck, H):
+	ci, cj = pos[0], pos[1]
+	if ci == H + 1:
+		return cj
+	if trans[ci][cj] or pos in candiCheck:
+		return f([ci + 1, cj + 1], candiCheck, H)
+	elif trans[ci][cj - 1] or [ci, cj - 1] in candiCheck:
+		return f([ci + 1, cj - 1], candiCheck, H)
+	else:
+		return f([ci + 1, cj], candiCheck, H)
 
-					
+def isValid(x):
+	x.sort()
+	for i in range(len(x) - 1):
+		if x[i][1] + 1 == x[i + 1][1]:
+			if x[i][0] == x[i + 1][0]:
+				return False
+	return True
 
+for i in range(M + 1):
+	for x in list(combinations(candi, i)):
+		flag = True
+		for j in range(1, N + 1):
+			if j != f([1, j], x, H):
+				flag = False
+			if not flag:
+				break
+		if flag and isValid([x]):
+			print(len(x))
+			exit()
+print(-1)
 
-
-				# if not visit[ni][nj][cnt]:
-				# 	if k <= 2 and cnt < 3:
-				# 		visit[ni][nj][cnt + 1] = True
-				# 		q.append([ni, nj, cnt + 1])
-				# 		else:
-				# 			visit[ni][nj][cnt + 1] = True
-				# 			q.append([ni, nj, cnt])
-				# 	else:
-				# 		visit[n]
