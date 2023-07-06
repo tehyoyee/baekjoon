@@ -42,6 +42,9 @@ nodeCnt = 1 << H
 seg = [0] * nodeCnt
 initSeg(1, 0, len(lst) - 1)
 
+print(seg)
+print()
+
 for _ in range(M):
 	a, b = map(int, input().split())
 	a, b = a - 1, b - 1
