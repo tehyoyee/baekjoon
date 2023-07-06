@@ -45,6 +45,12 @@ class Main {
 		}
 
 		while (!q.isEmpty()) {
+			for (int i = 0; i < R; i++) {
+				for (int j = 0; j < C; j++) {
+					System.out.print(graph[i][j] + " ");
+				}
+				System.out.println();
+			}
 			Pos curPos = q.poll();
 			int ci = curPos.y;
 			int cj = curPos.x;
