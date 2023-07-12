@@ -1,0 +1,15 @@
+// 10926.java
+// 23.07.13. 02:10
+
+import java.util.Scanner;
+
+class Main {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		String input = sc.nextLine();
+		System.out.println(input + "??!");
+		sc.close();
+	}
+}
