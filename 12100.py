@@ -1,194 +1,137 @@
 # 12100.py
-# 23.03.04. 10:01 ~
+# 23.04.26. 09:23 ~ 10:40
 
-import copy
+import sys
+input = sys.stdin.readline
+from copy import deepcopy
 
-def toRight(graph, cnt, n):
-	result = 0
-	if cnt == 5:
-		for x in graph:
-			result = max(result, max(x))
-		return result
-	for i in range(n):
-		tmp = -1
-		nj = n - 1
-		for j in range(n - 1, -1, -1):
-			if graph[i][j]:
-				if tmp != -1:
-					if graph[i][j] == graph[i][tmp]:
-						graph[i][nj] = graph[i][tmp] * 2
-						graph[i][j] = 0
-						if nj != tmp:
-							graph[i][tmp] = 0
-						tmp = -1
-					else:
-						graph[i][nj] = graph[i][tmp]
-						nj -= 1
-						if nj >= 0:
-							graph[i][nj] = graph[i][j]
-							if nj != j:
-								graph[i][j] = 0
-						tmp = -1
-					nj -= 1
-				else:
-					tmp = j
-		if nj != tmp and tmp != -1 and nj >= 0:
-			graph[i][nj], graph[i][tmp] = graph[i][tmp], 0
-	result = max(result, toRight(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLeft(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toUpper(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLower(copy.deepcopy(graph), cnt + 1, n))
-	return result
-
-def toLeft(graph, cnt, n):
-	result = 0
-	if cnt == 5:
-		for x in graph:
-			result = max(result, max(x))
-		return result
-	for i in range(n):
-		tmp = -1
-		nj = 0
-		for j in range(n):
-			if graph[i][j]:
-				if tmp != -1:
-					if graph[i][j] == graph[i][tmp]:
-						graph[i][nj] = graph[i][tmp] * 2
-						graph[i][j] = 0
-						if nj != tmp:
-							graph[i][tmp] = 0
-						tmp = -1
-					else:
-						graph[i][nj] = graph[i][tmp]
-						nj += 1
-						if nj < n:
-							graph[i][nj] = graph[i][j]
-							if nj != j:
-								graph[i][j] = 0
-						tmp = -1
-					nj += 1
-				else:
-					tmp = j
-		if nj != tmp and tmp != -1 and nj < n:
-			graph[i][nj], graph[i][tmp] = graph[i][tmp], 0
-	result = max(result, toRight(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLeft(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toUpper(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLower(copy.deepcopy(graph), cnt + 1, n))
-	return result
-
-def toUpper(graph, cnt, n):
-	result = 0
-	if cnt == 5:
-		for x in graph:
-			result = max(result, max(x))
-		return result
-	for j in range(n):
-		tmp = -1
-		ni = 0
-		for i in range(n):
-			if graph[i][j]:
-				if tmp != -1:
-					if graph[i][j] == graph[tmp][j]:
-						graph[ni][j] = graph[tmp][j] * 2
-						graph[i][j] = 0
-						if ni != tmp:
-							graph[tmp][j] = 0
-						tmp = -1
-					else:
-						graph[ni][j] = graph[tmp][j]
-						ni += 1
-						if ni < n:
-							graph[ni][j] = graph[i][j]
-							if ni != i:
-								graph[i][j] = 0
-						tmp = -1
-					ni += 1
-				else:
-					tmp = i
-		if ni != tmp and tmp != -1 and ni < n:
-			graph[ni][j], graph[tmp][j] = graph[tmp][j], 0
-	result = max(result, toRight(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLeft(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toUpper(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLower(copy.deepcopy(graph), cnt + 1, n))
-	return result
-
-def toLower(graph, cnt, n):
-	result = 0
-	if cnt == 5:
-		for x in graph:
-			result = max(result, max(x))
-		return result
-	for j in range(n):
-		tmp = -1
-		ni = n - 1
-		for i in range(n - 1, -1, -1):
-			if graph[i][j]:
-				if tmp != -1:
-					if graph[i][j] == graph[tmp][j]:
-						graph[ni][j] = graph[tmp][j] * 2
-						graph[i][j] = 0
-						if ni != tmp:
-							graph[tmp][j] = 0
-						tmp = -1
-					else:
-						graph[ni][j] = graph[tmp][j]
-						ni -= 1
-						if ni >= 0:
-							graph[ni][j] = graph[i][j]
-							if ni != i:
-								graph[i][j] = 0
-						tmp = -1
-					ni -= 1
-				else:
-					tmp = i
-		if ni != tmp and tmp != -1 and ni >= 0:
-			graph[ni][j], graph[tmp][j] = graph[tmp][j], 0
-	result = max(result, toRight(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLeft(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toUpper(copy.deepcopy(graph), cnt + 1, n))
-	result = max(result, toLower(copy.deepcopy(graph), cnt + 1, n))
-	return result
-
-n = int(input())
+N = int(input())
 graph = []
-for _ in range(n):
+
+def toLower(graph, N, cnt):
+	newGraph = [[0] * N for _ in range(N)]
+	for j in range(N):
+		tmp = []
+		tmp2 = []
+		for i in range(N):
+			if graph[i][j]:
+				tmp.append(graph[i][j])
+		i = len(tmp) - 1
+		while i >= 0:
+			if i == 0:
+				tmp2.append(tmp[i])
+				i -= 1
+			elif tmp[i] != tmp[i - 1]:
+				tmp2.append(tmp[i])
+				i -= 1
+			else:
+				tmp2.append(tmp[i] * 2)
+				i -= 2
+		tmp2.reverse()
+		tmp2 = [0] * (N - len(tmp2)) + tmp2
+		for i in range(N):
+			newGraph[i][j] = tmp2[i]
+	return newGraph, cnt + 1
+
+
+def toUpper(graph, N, cnt):
+	newGraph = [[0] * N for _ in range(N)]
+	for j in range(N):
+		tmp = []
+		tmp2 = []
+		for i in range(N):
+			if graph[i][j]:
+				tmp.append(graph[i][j])
+		i = 0
+		while i < len(tmp):
+			if i == len(tmp) - 1:
+				tmp2.append(tmp[i])
+				i += 1
+			elif tmp[i] != tmp[i + 1]:
+				tmp2.append(tmp[i])
+				i += 1
+			else:
+				tmp2.append(tmp[i] * 2)
+				i += 2
+		tmp2 += [0] * (N - len(tmp2))
+		for i in range(N):
+			newGraph[i][j] = tmp2[i]
+	return newGraph, cnt + 1
+
+def toLeft(graph, N, cnt):
+	newGraph = [[] for _ in range(N)]
+	for i in range(N):
+		tmp = []
+		tmp2 = []
+		for j in range(N):
+			if graph[i][j]:
+				tmp.append(graph[i][j])
+		j = 0
+		while j < len(tmp):
+			if j == len(tmp) - 1:
+				tmp2.append(tmp[j])
+				j += 1
+			elif tmp[j] != tmp[j + 1]:
+				tmp2.append(tmp[j])
+				j += 1
+			else:
+				tmp2.append(tmp[j] * 2)
+				j += 2
+		newGraph[i] = tmp2 + [0] * (N - len(tmp2))
+	return newGraph, cnt + 1
+
+def toRight(graph, N, cnt):
+	newGraph = [[] for _ in range(N)]
+	for i in range(N):
+		tmp = []
+		tmp2 = []
+		for j in range(N):
+			if graph[i][j]:
+				tmp.append(graph[i][j])
+		j = len(tmp) - 1
+		while j >= 0:
+			if j == 0:
+				tmp2.append(tmp[j])
+				j -= 1
+			elif tmp[j] != tmp[j - 1]:
+				tmp2.append(tmp[j])
+				j -= 1
+			else:
+				tmp2.append(tmp[j] * 2)
+				j -= 2
+		tmp2.reverse()
+		newGraph[i] = [0] * (N - len(tmp2)) + tmp2
+	return newGraph, cnt + 1
+
+for _ in range(N):
 	graph.append(list(map(int, input().split())))
-result = []
-result.append(toRight(copy.deepcopy(graph), 0, n))
-result.append(toLeft(copy.deepcopy(graph), 0, n))
-result.append(toUpper(copy.deepcopy(graph), 0, n))
-result.append(toLower(copy.deepcopy(graph), 0, n))
-print(max(result))
 
+def dfs(cur, cnt, d):
+	result = 0
+	if cnt == 5:
+		for i in range(N):
+			result = max(result, max(cur[i]))
+		return result
+	new = []
+	if d == 0:
+		new, newCnt = toRight(cur, N, cnt)
+		for d in range(4):
+			result = max(result, dfs(new, newCnt, d))
+	elif d == 1:
+		new, newCnt = toLeft(cur, N, cnt)
+		for d in range(4):
+			result = max(result, dfs(new, newCnt, d))
+	elif d == 2:
+		new, newCnt = toUpper(cur, N, cnt)
+		for d in range(4):
+			result = max(result, dfs(new, newCnt, d))
+	elif d == 3:
+		new, newCnt = toLower(cur, N, cnt)
+		for d in range(4):
+			result = max(result, dfs(new, newCnt, d))
+	return result
 
-# 0 4 0
-# 2 0 2
-# 0 4 0
-
-
-# 3
-# 256 8 128
-# 16 0 256
-# 0 8 0
-# u
-# 256 16 128
-# 16 0 256
-# 0 0 0
-# r
-# 256 16 128
-# 0 16 256
-# 0 0 0
-# u
-# 256 32 128
-# 0 0 256
-# 0 0 0
-# l
-# 256 32 128
-# 256 0 0
-# 0 0 0
-# u
-# 512 32 128
-# 0 0 0
-# 0 0 0
+result = 0
+for d in range(4):
+	result = max(result, dfs(deepcopy(graph), 0, d))
+print(result)

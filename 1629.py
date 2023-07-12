@@ -1,52 +1,15 @@
 # 1629.py
+# 23.07.10. 00:16 ~ x
 
-# import sys
-# input = sys.stdin.readline
+a, b, c = map(int, input().split())
 
-# result = 1
-# x, y, z = map(int, input().split())
-# l = len(str(z))
-# limit = z * 2
-# limit = len(str(limit))
-# print(limit)
+def dac(a, b):
+	if b == 1:
+		return a % c
+	div = dac(a, b//2)
+	if b % 2 == 0:
+		return div * div % c
+	else:
+		return div * div * a % c
 
-# for i in range(y):
-# 	print(result, x)
-# 	result = int(str(result)[-limit + 1:])
-# 	if result == 0:
-# 		result = 10 ** (l - 1)
-# 	result *= x
-# print(result % z)
-
-import sys
-input = sys.stdin.readline
-
-result = 1
-x, y, z = map(int, input().split())
-limit = 2 * z
-l_l = len(str(limit))
-print(l_l)
-if len(str(x)) - l_l > 0:
-	new_x = int(str(x)[-(len(str(x)) - l_l + 1):])
-print(new_x)
-for i in range(y):
-	if result == 0:
-		result = z
-	print(result, new_x)
-	result *= new_x
-	result = int(str(result)[-l_l:])
-	if result == 0:
-		result = new_x
-print(result % z)
-
-# import sys
-# input = sys.stdin.readline
-
-# result = 1
-# x, y, z = map(int, input().split())
-# limit = 2 * z
-
-# xx = []
-# for i in str(x):
-# 	xx.append(int(i))
-# print(xx)
+print(dac(a, b))
