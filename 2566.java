@@ -9,9 +9,8 @@ class Main {
 		
 		Scanner sc = new Scanner(System.in);
 
-		// int[][] arr = new int[10][10];
 		int result = 0;
-		int[] pos = new int[]{0, 0};
+		int[] pos = new int[]{1, 1};
 		for (int i = 1; i < 10; i++) {
 			for (int j = 1; j < 10; j++) {
 				int tmp = sc.nextInt();
@@ -24,5 +23,6 @@ class Main {
 		}
 		System.out.println(result);
 		System.out.println(pos[0] + " " + pos[1]);
+		sc.close();
 	}
 }
