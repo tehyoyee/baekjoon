@@ -1,36 +1,24 @@
 # 12015.py
+# 23.07.23. 09:36 ~
 
 import sys
 input = sys.stdin.readline
 
-n = int(input())
+N = int(input())
 lst = list(map(int, input().split()))
 dp = [0]
 
 for x in lst:
-	if dp[-1] < x:
+	if x > dp[-1]:
 		dp.append(x)
-	else:
-		start = 0
-		end = len(dp)
-		while start <= end:
-			pivot = (start + end) // 2
-			if pivot
-
-
-# import sys
-# input = sys.stdin.readline
-
-# n = int(input())
-# lst = [0] + list(map(int, input().split()))
-# dp = [0] * (n + 1)
-
-# for i in range(1, n + 1):
-# 	if lst[i] > lst[i - 1]:
-# 		dp[i] += dp[i - 1] + 1
-# 	else:
-# 		for j in range(i):
-# 			if lst[i] >= lst[j]:
-# 				dp[i] = max(dp[i], dp[j])
-# 		dp[i] += 1
-# print(dp[n])
+		continue
+	left = 0
+	right = len(dp)
+	while left < right:
+		mid = (left + right) // 2
+		if dp[mid] < x:
+			left = mid+1
+		else:
+			right = mid
+	dp[right] = x
+print(len(dp)-1)
