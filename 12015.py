@@ -1,5 +1,5 @@
 # 12015.py
-# 23.07.23. 09:36 ~
+# 23.07.23. 09:36 ~ x
 
 import sys
 input = sys.stdin.readline
