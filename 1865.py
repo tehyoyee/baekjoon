@@ -6,10 +6,14 @@ input = sys.stdin.readline
 
 def bf():
 	for i in range(N):
+		print("=======i=======\n", i);
 		for j in range(len(edges)):
+			print("========j=======")
 			cur, next, cost = edges[j]
+			print(cur, next, cost)
 			if dist[next] > dist[cur] + cost:
 				dist[next] = dist[cur] + cost
+				print(dist)
 				if i == N - 1:
 					return True
 	return False
@@ -19,7 +23,7 @@ TC = int(input())
 for _ in range(TC):
 	N, M, W = map(int, input().split())
 	edges = []
-	dist = [1e9] * (N + 1)
+	dist = [0] * (N + 1)
 	
 	for _ in range(M):
 		s, e, t = map(int, input().split())
