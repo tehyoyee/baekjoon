@@ -1,14 +1,15 @@
-
+//16
 import java.util.*;
 import java.io.*;
 
 class Main {
-
+	
 	public static void main(String[] args) throws IOException {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		
+		StringBuilder sb = new StringBuilder();
+
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 
@@ -29,8 +30,8 @@ class Main {
 		Collections.sort(list, new Comparator<String>() {
 			@Override
 			public int compare(String o1, String o2) {
-				if (Integer.compare(map.get(o1), map.get(o2)) != 0) {
-					return Integer.compare(map.get(o2), map.get(o1));
+				if (map.get(o1) != map.get(o2)) {
+					return map.get(o2) - map.get(o1);
 				}
 				if (o1.length() != o2.length()) {
 					return o2.length() - o1.length();
@@ -38,7 +39,6 @@ class Main {
 				return o1.compareTo(o2);
 			}
 		});
-		StringBuilder sb = new StringBuilder();
 		for (String x : list) {
 			sb.append(x + "\n");
 		}
